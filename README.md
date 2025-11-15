@@ -76,6 +76,7 @@
 | `OTEL_EXPORTER_OTLP_HEADERS=<api-auth-header-name>=<api-auth-token>` | NO        |                                                      |               | OTEL Exporter OTLP endpoint API auth token     | `OTEL_EXPORTER_OTLP_HEADERS=x-vendor-api-key=abcdefgh-12345678`       |
 | `TRACEPARENT=<traceparent-header>`                                   | NO        |                                                      |               | Traceparent header in W3C trace context format | `TRACEPARENT=00-84b54e9330faae5350f0dd8673c98146-279fa73bc935cc05-01` |
 | `OTEL_CLI_SERVER_PORT=<port-no>`                                     | NO        |                                                      | `7777`        | OTEL CLI server port to start on               | `OTEL_CLI_SERVER_PORT=1234`                                           |
+| `OTEL_BASH_SKIP_SERVER=<skip-flag>`                                  | NO        | - `true` <br> - `1`                                  |               | Skip OTEL CLI server startup                    | `OTEL_BASH_SKIP_SERVER=true`                                          |
 | `OTEL_BASH_LOG_LEVEL=<log-level>`                                    | NO        | - `DEBUG` <br> - `INFO` <br> - `WARN` <br> - `ERROR` | `WARN`        | Configure log level                            | `OTEL_BASH_LOG_LEVEL=DEBUG`                                           | 
 
 ## Examples

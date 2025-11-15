@@ -571,12 +571,17 @@ function _otel_bash_init() {
         # If this environment variable is set, this means that current bash execution is already traced.
         # In this case, no need to start OTEL CLI server again as the server port is already in use. 
         if [ -z "$_OTEL_BASH" ]; then
-            local server_port=${OTEL_CLI_SERVER_PORT:-${_DEFAULT_OTEL_CLI_SERVER_PORT}}
-            export OTEL_CLI_SERVER_PORT=${server_port}
-            # Start OTEL CLI server in background.
-            # Note that we don't need to close the server manually 
-            # as it shutdowns automatically when this (parent) process exits.
-            otel-cli start-server &
+            # Check if server startup should be skipped
+            if [ "$OTEL_BASH_SKIP_SERVER" != "true" ] && [ "$OTEL_BASH_SKIP_SERVER" != "1" ]; then
+                local server_port=${OTEL_CLI_SERVER_PORT:-${_DEFAULT_OTEL_CLI_SERVER_PORT}}
+                export OTEL_CLI_SERVER_PORT=${server_port}
+                # Start OTEL CLI server in background.
+                # Note that we don't need to close the server manually 
+                # as it shutdowns automatically when this (parent) process exits.
+                otel-cli start-server &
+            else
+                _otel_bash_log_info "<init>" "Skipping OTEL CLI server startup (OTEL_BASH_SKIP_SERVER is set)"
+            fi
         fi    
     else
         _otel_bash_otel_cli_exist=0
